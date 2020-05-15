@@ -99,7 +99,7 @@ const calculateBidCap = (req) => {
 
 const bipCapController = async (req, res) => {
     const bidCap = calculateBidCap(req);
-    return res.status(200).json({ data: bidCap })
+    return res.status(200).json({ data: { bidCap: bidCap } })
 }
 
 module.exports = { bipCapController, calculateBidCap }

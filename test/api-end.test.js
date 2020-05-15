@@ -25,7 +25,7 @@ describe('bid endpoint', () => {
       })
     expect(res.statusCode).toEqual(200)
     expect(res.body).toHaveProperty('data')
-    expect(res.body.data).toEqual(25)
+    expect(res.body.data.bidCap).toEqual(25)
 
   })
 
