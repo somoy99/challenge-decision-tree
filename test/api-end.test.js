@@ -1,9 +1,15 @@
 const request = require('supertest')
-const app = require('../index')
+const server = require('../index')
+
+afterAll(done => {
+    server.close();
+    done();
+});
+
 
 describe('bid endpoint', () => {
   it('check for api validity', async () => {
-    const res = await request(app)
+    const res = await request(server)
       .post('/bid-cap')
       .send({
         "rpcAlpha": 3.0,
@@ -19,14 +25,16 @@ describe('bid endpoint', () => {
       })
     expect(res.statusCode).toEqual(200)
     expect(res.body).toHaveProperty('data')
+    expect(res.body.data).toEqual(25)
+
   })
 
 
   it('check for api invalidity', async () => {
-    const res = await request(app)
+    const res = await request(server)
       .post('/bid-cap')
       .send({
-        "rpcAlpha": "aaaaaa",
+        "rpcAlpha": "string",
         "rpcBeta": 3.2,
         "ebRpc": 25,
         "net": 31 ,
@@ -39,4 +47,6 @@ describe('bid endpoint', () => {
       })
     expect(res.statusCode).toEqual(400)
   })
+
+
 })
